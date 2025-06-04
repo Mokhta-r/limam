@@ -1,0 +1,7 @@
+<!-- reply_message.html -->
+<h2>Reply to {{ recipient.username }}</h2>
+<p><strong>Original message:</strong> {{ original_message.body }}</p>
+<form method="post">
+    <textarea name="body" required></textarea><br>
+    <button type="submit">Send Reply</button>
+</form>

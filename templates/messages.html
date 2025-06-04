@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Messages{% endblock %}
+{% block content %}
+<h2>Received Messages</h2>
+<ul class="list-group">
+    {% for message in messages %}
+        <li class="list-group-item">
+            <strong>From:</strong> {{ message.sender.username }}<br>
+            <strong>Message:</strong> {{ message.body }}<br>
+            <strong>Sent at:</strong>
+            {% if message.timestamp %}
+                {{ message.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
+            {% else %}
+                Unknown
+            {% endif %}
+            <br>
+            <a href="{{ url_for('reply_message', message_id=message.id) }}" class="btn btn-sm btn-outline-primary mt-2">Reply</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

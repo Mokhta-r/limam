@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Conversation with {{ other.username }}</h2>
+<div class="mb-3">
+    {% for message in messages %}
+        <div class="d-flex {% if message.sender_id == user.id %}justify-content-end{% else %}justify-content-start{% endif %} mb-2">
+            <div class="p-2 rounded {% if message.sender_id == user.id %}bg-primary text-white{% else %}bg-light{% endif %}" style="max-width: 70%;">
+                <strong>{{ message.sender.username }}:</strong> {{ message.body }}
+                <br>
+                <small class="text-muted">
+                    {% if message.timestamp %}
+                        {{ message.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
+                    {% else %}
+                        Unknown
+                    {% endif %}
+                </small>
+            </div>
+        </div>
+    {% endfor %}
+    {% if not messages %}
+        <div class="alert alert-info">No messages yet.</div>
+    {% endif %}
+</div>
+<form method="post">
+    <div class="mb-3">
+        <textarea class="form-control" name="body" required rows="3"></textarea>
+    </div>
+    <button class="btn btn-primary" type="submit">Send</button>
+</form>
+{% endblock %}
